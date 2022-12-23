@@ -20,27 +20,17 @@ export const CalculatorButton = styled.button<{ area: string }>`
   width: 100%;
   cursor: pointer;
   border: none;
-  background-color: #263650;
   color: #cbedf6;
-
-  &:hover {
-    background-color: #304362;
-  }
+  background-color: #263650;
+  &:hover { background-color: #304362; }
 
   &.modifier:not(.dot) {
     background-color: #1c7f92;
-
-    &:hover {
-      background-color: #176c7c;
-    }
+    &:hover { background-color: #176c7c; }
 
     &.equals {
       background-color: #e58121;
-
-      &:hover {
-        background-color: #ca6c12;
-      }
+      &:hover { background-color: #ca6c12; }
     }
   }
-
 `;
