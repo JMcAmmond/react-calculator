@@ -6,7 +6,8 @@ export const CalculatorContext = createContext<ICalculatorState>({
   output: '',
   addEntry: () => {},
   calculate: () => {},
-  clear: () => {}
+  clear: () => {},
+  remove: () => {}
 });
 
 export const useCalculatorContext = () => useContext(CalculatorContext);

@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Operator } from '../../enums/operators';
-import { ICalculatorNumber } from '../../interfaces/ICalculatorNumber';
+import { IEntry } from '../../interfaces/IEntry';
 
 export const useCalculatorState = () => {
-  const [entries, setEntries] = useState<ICalculatorNumber[]>([]);
+  const [entries, setEntries] = useState<IEntry[]>([]);
 
   const output = useMemo(() => {
     return entries.length ? entries.map((num) => num.value).join('') : '0';
@@ -15,6 +15,10 @@ export const useCalculatorState = () => {
 
   const addEntry = useCallback((value: string, operator: Operator) => {
     if (operator === Operator.Modifier && (isLastValueModifier || entries.length === 0)) {
+      return;
+    }
+
+    if (entries.length === 0 && value === '0') {
       return;
     }
 
@@ -35,5 +39,12 @@ export const useCalculatorState = () => {
     setEntries([]);
   }, []);
 
-  return { entries, output, addEntry, calculate, clear };
+  const remove = useCallback(() => {
+    setEntries((prev) => {
+      const toReturn = prev.slice(0, -1);
+      return [...toReturn];
+    });
+  }, []);
+
+  return { entries, output, addEntry, calculate, clear, remove };
 };

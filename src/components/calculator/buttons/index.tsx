@@ -7,7 +7,7 @@ import { ButtonGrid } from './button.styles';
 import { Operator } from '../../../enums/operators';
 
 export const ButtonGroup = () => {
-  const { addEntry, calculate, clear } = useCalculatorContext();
+  const { addEntry, calculate, clear, remove } = useCalculatorContext();
 
   const handleOnClick = useCallback((value: string, operator: Operator, action: Action) => {
     switch (action) {
@@ -17,12 +17,15 @@ export const ButtonGroup = () => {
       case Action.Clear:
         clear();
         break;
+      case Action.Delete:
+        remove();
+        break;
       case Action.Add:
       default:
         addEntry(value, operator);
         break;
     }
-  }, [addEntry, calculate, clear]);
+  }, [addEntry, calculate, clear, remove]);
 
   return (
     <ButtonGrid>

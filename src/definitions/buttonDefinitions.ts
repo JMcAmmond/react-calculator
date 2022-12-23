@@ -19,5 +19,6 @@ export const buttonDefinitions: IButtonDefinition[] = [
   { identifier: 'multiple', label: 'x', value: '*', operator: Operator.Modifier, action: Action.Add },
   { identifier: 'add', label: '+', value: '+', operator: Operator.Modifier, action: Action.Add },
   { identifier: 'subtract', label: '-', value: '-', operator: Operator.Modifier, action: Action.Add },
-  { identifier: 'clear', label: 'CE', value: 'CE', operator: Operator.Modifier, action: Action.Clear },
+  { identifier: 'clear', label: 'AC', value: 'CE', operator: Operator.Modifier, action: Action.Clear },
+  { identifier: 'delete', label: '←', value: 'DEL', operator: Operator.Modifier, action: Action.Delete },
 ];

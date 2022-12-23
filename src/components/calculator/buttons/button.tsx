@@ -10,7 +10,7 @@ export const Button = ({ identifier, label, onClick, value, operator, action }: 
   return ( 
     <CalculatorButton
       type="button"
-      className={identifier}
+      className={`${identifier} ${operator}`}
       onClick={handleOnClick}
       area={identifier}>
       {label}

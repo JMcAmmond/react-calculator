@@ -1,5 +1,6 @@
 export enum Action {
   Add = 'add',
   Calculate = 'calculate',
-  Clear = 'clear'
+  Clear = 'clear',
+  Delete = 'delete'
 }
