@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { IButton } from '../../interfaces/IButton';
+import { IButton } from '../../../interfaces/IButton';
 import { CalculatorButton } from './button.styles';
 
 export const Button = ({ identifier, label, onClick, value, operator, action }: IButton) => {

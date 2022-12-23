@@ -3,37 +3,37 @@ import { Operator } from '../../enums/operators';
 import { ICalculatorNumber } from '../../interfaces/ICalculatorNumber';
 
 export const useCalculatorState = () => {
-  const [values, setValues] = useState<ICalculatorNumber[]>([]);
+  const [entries, setEntries] = useState<ICalculatorNumber[]>([]);
 
-  const display = useMemo(() => {
-    return values.length ? values.map((num) => num.value).join('') : '0';
-  }, [values]);
+  const output = useMemo(() => {
+    return entries.length ? entries.map((num) => num.value).join('') : '0';
+  }, [entries]);
 
   const isLastValueModifier = useMemo(() => {
-    return values.length > 0 && values[values.length - 1].operator === Operator.Modifier
-  }, [values]);
+    return entries.length > 0 && entries[entries.length - 1].operator === Operator.Modifier
+  }, [entries]);
 
-  const addValue = useCallback((value: string, operator: Operator) => {
-    if (operator === Operator.Modifier && (isLastValueModifier || values.length === 0)) {
+  const addEntry = useCallback((value: string, operator: Operator) => {
+    if (operator === Operator.Modifier && (isLastValueModifier || entries.length === 0)) {
       return;
     }
 
-    setValues((prev) => {
+    setEntries((prev) => {
       return [...prev, {value, operator}]
     });
-  }, [isLastValueModifier, values.length]);
+  }, [isLastValueModifier, entries.length]);
 
   const calculate = useCallback(() => {
     if (!isLastValueModifier) {
       // eslint-disable-next-line no-eval
-      const calc = eval(display);
-      setValues([{value: calc, operator: Operator.Number}]);
+      const calc = eval(output);
+      setEntries([{value: calc, operator: Operator.Number}]);
     }
-  }, [display, isLastValueModifier]);
+  }, [output, isLastValueModifier]);
 
   const clear = useCallback(() => {
-    setValues([]);
+    setEntries([]);
   }, []);
 
-  return { values, display, addValue, calculate, clear };
+  return { entries, output, addEntry, calculate, clear };
 };

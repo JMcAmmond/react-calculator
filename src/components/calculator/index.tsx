@@ -1,7 +1,7 @@
 import React from 'react';
 import { CalculatorProvider } from '../../context/calculator/calculatorProvider';
-import { Buttons } from '../buttons';
-import { Screen } from '../screen';
+import { ButtonGroup } from './buttons';
+import { Screen } from './screen';
 import { CalculatorContainer } from './calculator.styles';
 
 export const Calculator = () => {
@@ -9,7 +9,7 @@ export const Calculator = () => {
     <CalculatorProvider>
       <CalculatorContainer>
         <Screen />
-        <Buttons />
+        <ButtonGroup />
       </CalculatorContainer>
     </CalculatorProvider>
   )

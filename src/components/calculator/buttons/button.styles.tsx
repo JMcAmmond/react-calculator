@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ButtonLayout = styled.div`
+export const ButtonGrid = styled.div`
   height: 400px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -5,12 +5,12 @@ import { useCalculatorState } from './useCalculatorState';
 export const CalculatorProvider = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
-  const { display, values, addValue, calculate, clear } = useCalculatorState();
+  const { entries, output, addEntry, calculate, clear } = useCalculatorState();
 
   return (
     <CalculatorContext.Provider
       value={{
-        display, values, addValue, calculate, clear
+        entries, output, addEntry, calculate, clear
       }}
     >
       {children}

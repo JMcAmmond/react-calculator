@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Display = styled.div`
+export const ScreenContainer = styled.div`
   width: 100%;
   height: 50px;
   background-color: #0c0c0c;
