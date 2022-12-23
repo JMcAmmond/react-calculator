@@ -1,9 +1,14 @@
 import React from 'react';
 import { useCalculatorContext } from '../../../context/calculator/calculatorContext';
-import { ScreenContainer } from './screen.styles';
+import { ScreenContainer, History, Output } from './screen.styles';
 
 export const Screen = () => {
-  const { output } = useCalculatorContext();
+  const { equation, calculation, lastEquation } = useCalculatorContext();
 
-  return <ScreenContainer>{output}</ScreenContainer>
+  return (
+    <ScreenContainer>
+      <History>{lastEquation}</History>
+      <Output>{equation ? equation : calculation}</Output>
+    </ScreenContainer>
+  )
 }

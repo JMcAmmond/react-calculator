@@ -3,7 +3,9 @@ import { ICalculatorState } from '../../interfaces/ICalculatorState';
 
 export const CalculatorContext = createContext<ICalculatorState>({
   entries: [],
-  output: '',
+  equation: '',
+  lastEquation: '',
+  calculation: '',
   addEntry: () => {},
   calculate: () => {},
   clear: () => {},

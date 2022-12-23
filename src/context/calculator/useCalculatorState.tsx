@@ -5,15 +5,21 @@ import { IEntry } from '../../interfaces/IEntry';
 import { Identifier } from '../../types/identifier';
 
 export const useCalculatorState = () => {
+  const [history, setHistory] = useState<IEntry[][]>([]);
   const [entries, setEntries] = useState<IEntry[]>([]);
+  const [calculation, setCalculation] = useState<string>('');
 
   const [hasDotInNumberSequence, setHasDotInNumberSequence] = useState<boolean>(false);
 
   const isLastValueModifier = useMemo(() => {
-    return entries.length > 0 && entries[entries.length - 1].operator === Operator.Modifier
+    return entries.length > 0 && entries.at(-1)?.operator === Operator.Modifier
   }, [entries]);
 
   const isEntriesEmpty = useMemo(() => entries.length === 0, [entries]);
+
+  const updateHistroy = useCallback(() => {
+    setHistory((prev) => [...prev, entries]);
+  }, [entries]);
 
   const isEntryAllowed = useCallback((operator: Operator, identifier: Identifier) => {
     if (
@@ -46,26 +52,33 @@ export const useCalculatorState = () => {
     }
   }, [isEntryAllowed, updateDotSequence]);
 
-  const output = useMemo(() => {
-    return entries.length ? entries.map((num) => num.value).join('') : '0';
+  const equation = useMemo(() => {
+    return entries.map((num) => num.value).join('') ?? '';
   }, [entries]);
+
+  const lastEquation = useMemo(() => {
+    return history.at(-1)?.map((num) => num.value).join('') ?? '';
+  }, [history]);
 
   const calculate = useCallback(() => {
     if (!isLastValueModifier) {
       // eslint-disable-next-line no-eval
-      const calc = eval(output);
-      setEntries([{value: calc, operator: Operator.Number}]);
+      const calc = eval(equation);
+      updateHistroy();
+      setEntries([]);
+      setCalculation(calc);
     }
-  }, [output, isLastValueModifier]);
+  }, [isLastValueModifier, equation, updateHistroy]);
 
   const clear = useCallback(() => {
     setEntries([]);
     setHasDotInNumberSequence(false);
+    setCalculation('');
   }, []);
 
   const remove = useCallback(() => {
     setEntries((prev) => {
-      const isLastValueDot = prev[prev.length - 1]?.identifier === 'dot';
+      const isLastValueDot = prev.at(-1)?.identifier === 'dot';
       const toReturn = prev.slice(0, -1);
 
       if (isLastValueDot) {
@@ -76,5 +89,5 @@ export const useCalculatorState = () => {
     });
   }, []);
 
-  return { entries, output, addEntry, calculate, clear, remove };
+  return { entries, equation, lastEquation, calculation, addEntry, calculate, clear, remove };
 };
