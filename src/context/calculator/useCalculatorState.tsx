@@ -31,8 +31,7 @@ export const useCalculatorState = () => {
   const isEntryAllowed = useCallback((operator: Operator, identifier: Identifier) => {
     if (
       (operator === Operator.Modifier && (isLastValueModifier || isEntriesEmpty)) ||
-      (isEntriesEmpty && identifier === 'zero') ||
-      (hasDotInNumberSequence && identifier === 'dot')
+      (identifier === 'dot' && hasDotInNumberSequence)
     ) {
       return false;
     }
@@ -77,14 +76,11 @@ export const useCalculatorState = () => {
 
   const remove = useCallback(() => {
     setEntries((prev) => {
-      const isLastValueDot = prev.at(-1)?.identifier === 'dot';
-      const toReturn = prev.slice(0, -1);
-
-      if (isLastValueDot) {
+      if (prev.at(-1)?.identifier === 'dot') {
         setHasDotInNumberSequence(false);
       }
 
-      return [...toReturn];
+      return [...prev.slice(0, -1)];
     });
   }, []);
 
