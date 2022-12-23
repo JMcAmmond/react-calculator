@@ -6,14 +6,13 @@ export const CalculatorProvider = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
   const { 
-    entries, equation, lastEquation, calculation,
+    equation, lastEquation, calculation,
     addEntry, calculate, clear, remove
   } = useCalculatorState();
 
   return (
     <CalculatorContext.Provider
       value={{
-        entries,
         equation,
         lastEquation,
         calculation,

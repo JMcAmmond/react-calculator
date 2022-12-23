@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CalculatorContainer = styled.div`
-  width: 350px;
+  width: 325px;
   height: 450px;
   display: flex;
   flex-direction: column;

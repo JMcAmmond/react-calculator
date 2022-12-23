@@ -1,8 +1,6 @@
-import { IEntry } from './IEntry';
 import { IButtonDefinition } from './IButtonDefinition';
 
 export interface ICalculatorState {
-  entries: IEntry[];
   equation: string;
   lastEquation: string;
   calculation: string;

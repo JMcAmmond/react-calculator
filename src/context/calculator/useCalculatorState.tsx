@@ -8,8 +8,15 @@ export const useCalculatorState = () => {
   const [history, setHistory] = useState<IEntry[][]>([]);
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [calculation, setCalculation] = useState<string>('');
-
   const [hasDotInNumberSequence, setHasDotInNumberSequence] = useState<boolean>(false);
+
+  const equation = useMemo(() => {
+    return entries.map((num) => num.value).join('') ?? '';
+  }, [entries]);
+
+  const lastEquation = useMemo(() => {
+    return history.at(-1)?.map((num) => num.value).join('') ?? '';
+  }, [history]);
 
   const isLastValueModifier = useMemo(() => {
     return entries.length > 0 && entries.at(-1)?.operator === Operator.Modifier
@@ -52,16 +59,8 @@ export const useCalculatorState = () => {
     }
   }, [isEntryAllowed, updateDotSequence]);
 
-  const equation = useMemo(() => {
-    return entries.map((num) => num.value).join('') ?? '';
-  }, [entries]);
-
-  const lastEquation = useMemo(() => {
-    return history.at(-1)?.map((num) => num.value).join('') ?? '';
-  }, [history]);
-
   const calculate = useCallback(() => {
-    if (!isLastValueModifier) {
+    if (!isLastValueModifier && equation !== '') {
       // eslint-disable-next-line no-eval
       const calc = eval(equation);
       updateHistroy();
@@ -89,5 +88,5 @@ export const useCalculatorState = () => {
     });
   }, []);
 
-  return { entries, equation, lastEquation, calculation, addEntry, calculate, clear, remove };
+  return { equation, lastEquation, calculation, addEntry, calculate, clear, remove };
 };
