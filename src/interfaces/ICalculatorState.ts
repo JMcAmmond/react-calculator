@@ -1,10 +1,10 @@
-import { Operator } from './../enums/operators';
-import { IEntry } from "./IEntry";
+import { IEntry } from './IEntry';
+import { IButtonDefinition } from './IButtonDefinition';
 
 export interface ICalculatorState {
   entries: IEntry[];
   output: string;
-  addEntry: (value: string, operator: Operator) => void;
+  addEntry: (buttonDefinition: IButtonDefinition) => void;
   calculate: () => void;
   clear: () => void;
   remove: () => void;

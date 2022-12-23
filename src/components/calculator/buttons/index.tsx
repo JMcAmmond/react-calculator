@@ -4,13 +4,13 @@ import { buttonDefinitions } from '../../../definitions/buttonDefinitions';
 import { Action } from '../../../enums/actions';
 import { Button } from './button';
 import { ButtonGrid } from './button.styles';
-import { Operator } from '../../../enums/operators';
+import { IButtonDefinition } from '../../../interfaces/IButtonDefinition';
 
 export const ButtonGroup = () => {
   const { addEntry, calculate, clear, remove } = useCalculatorContext();
 
-  const handleOnClick = useCallback((value: string, operator: Operator, action: Action) => {
-    switch (action) {
+  const handleOnClick = useCallback((definition: IButtonDefinition) => {
+    switch (definition.action) {
       case Action.Calculate:
         calculate();
         break;
@@ -22,7 +22,7 @@ export const ButtonGroup = () => {
         break;
       case Action.Add:
       default:
-        addEntry(value, operator);
+        addEntry(definition);
         break;
     }
   }, [addEntry, calculate, clear, remove]);

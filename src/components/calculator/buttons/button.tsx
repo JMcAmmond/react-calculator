@@ -2,10 +2,12 @@ import React, { useCallback } from 'react';
 import { IButton } from '../../../interfaces/IButton';
 import { CalculatorButton } from './button.styles';
 
-export const Button = ({ identifier, label, onClick, value, operator, action }: IButton) => {
+export const Button = (props: IButton) => {
+  const { identifier, label, onClick, operator, action, value } = props;
+
   const handleOnClick = useCallback(() => {
-    onClick(value, operator, action);
-  }, [onClick, action, operator, value]);
+    onClick({ identifier, label, operator, action, value });
+  }, [action, identifier, label, onClick, operator, value]);
 
   return ( 
     <CalculatorButton
